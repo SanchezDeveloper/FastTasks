@@ -14,7 +14,7 @@ export default function LoginPage() {
   const handleSubmit = async () => {
     const url = isRegister ? "/auth/register" : "/auth/login";
 
-    const { data } = await axios.post(`https://<seu-backend>.onrender.com${url}`, { username, password});
+    const { data } = await axios.post(`https://fasttasks.onrender.com${url}`, { username, password});
     if (data.token) {
       setUser({ token: data.token });
       router.push("/");

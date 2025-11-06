@@ -9,14 +9,14 @@ export default function Home() {
 
   useEffect(() => {
     if (!user.token) return;
-    axios.get("https://<seu-backend>.onrender.com/tasks", {
+    axios.get("https://fasttasks.onrender.com/tasks", {
       headers: { Authorization: `Bearer ${user.token}` },
     }).then((res) => setTasks(res.data));
   }, [user, setTasks]);
 
   const addTask = async () => {
     const { data } = await axios.post(
-      "https://<seu-backend>.onrender.com/tasks",
+      "https://fasttasks.onrender.com/tasks",
       { title: newTask },
       { headers: { Authorization: `Bearer ${user.token}` } }
     );
@@ -26,7 +26,7 @@ export default function Home() {
 
   const toggleTask = async (id: number) => {
     const { data } = await axios.patch(
-      `https://<seu-backend>.onrender.com/tasks/${id}`,
+      `https://fasttasks.onrender.com/tasks/${id}`,
       {},
       { headers: { Authorization: `Bearer ${user.token}` } }
     );
@@ -34,7 +34,7 @@ export default function Home() {
   };
 
   const deleteTask = async (id: number) => {
-    await axios.delete(`https://<seu-backend>.onrender.com/tasks/${id}`, {
+    await axios.delete(`https://fasttasks.onrender.com/tasks/${id}`, {
       headers: { Authorization: `Bearer ${user.token}` },
     });
     setTasks(tasks.filter((t) => t.id !== id));
