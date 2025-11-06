@@ -3,13 +3,21 @@ import cors from "cors";
 import { z } from "zod";
 import fs from "fs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const SECRET = "quicktasks-secret";
-const dbFile = "./src/db.json";
+const SECRET = process.env.SECRET || "quicktasks-secret";
+const dbFile = "./db.json";
+
+// garante que o arquivo existe
+if (!fs.existsSync(dbFile)) {
+  fs.writeFileSync(dbFile, JSON.stringify({ users: [], tasks: [] }, null, 2));
+}
 
 function readDB() {
   return JSON.parse(fs.readFileSync(dbFile, "utf8"));
@@ -90,4 +98,5 @@ app.delete("/tasks/:id", auth, (req: any, res) => {
   res.json({ success: true });
 });
 
-app.listen(4000, () => console.log("✅ Backend rodando na porta 4000"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`✅ Backend rodando na porta ${PORT}`));
