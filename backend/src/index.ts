@@ -4,15 +4,22 @@ import { z } from "zod";
 import fs from "fs";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const SECRET = process.env.SECRET || "quicktasks-secret";
-const dbFile = new URL("../db.json", import.meta.url).pathname;
+const dbFile = path.resolve(__dirname, "../db.json");
+
 
 // garante que o arquivo existe
 if (!fs.existsSync(dbFile)) {
@@ -99,4 +106,4 @@ app.delete("/tasks/:id", auth, (req: any, res) => {
 });
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`✅ Backend rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(` - Backend rodando na porta ${PORT}`));

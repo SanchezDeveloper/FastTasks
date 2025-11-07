@@ -3,8 +3,7 @@
     "target": "esnext",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "noEmit": false,
     "outDir": "dist",
     "rootDir": "src",
     "esModuleInterop": true,
@@ -15,7 +14,7 @@
     "types": ["node"],
     "typeRoots": ["./src/types", "./node_modules/@types"]
   },
-  "include": ["src/**/*"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
 
