@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { z } from "zod";
 import fs from "fs";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 const SECRET = process.env.SECRET || "quicktasks-secret";
-const dbFile = "./db.json";
+const dbFile = new URL("../db.json", import.meta.url).pathname;
 
 // garante que o arquivo existe
 if (!fs.existsSync(dbFile)) {
@@ -57,7 +57,7 @@ function auth(req: any, res: any, next: any) {
   const header = req.headers.authorization;
   if (!header) return res.status(401).json({ error: "Sem token" });
   try {
-    const decoded = jwt.verify(header.split(" ")[1], SECRET);
+    const decoded = jwt.verify(header.split(" ")[1], SECRET) as JwtPayload;
     req.user = decoded;
     next();
   } catch {
