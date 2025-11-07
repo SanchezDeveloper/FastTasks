@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTasks } from "@/store/useTasks";
-import { addTask, deleteTask, toggleTask } from "@/lib/taskActions";
+import { useTasks } from "@/app/store/useTasks";
+import { addTask, deleteTask, toggleTask } from "@/app/lib/taskActions";
 
 export default function Home() {
   const { user, tasks, setTasks, fetchTasks, setUser } = useTasks();

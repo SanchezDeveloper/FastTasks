@@ -1,4 +1,4 @@
-import { api } from "@/app/lib/api";
+import { api } from "./api";
 
 export const addTask = async (title: string, token: string) => {
   const { data } = await api.post(
